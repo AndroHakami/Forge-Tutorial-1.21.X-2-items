@@ -1,7 +1,11 @@
 package net.seep.tutorialmod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.seep.tutorialmod.block.ModBlocks;
+import net.seep.tutorialmod.client.KeybindHandler;
+import net.seep.tutorialmod.common.player.PlayerPower;
+import net.seep.tutorialmod.item.ModCreativeModeTabs;
 import net.seep.tutorialmod.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,7 +20,10 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.seep.tutorialmod.network.ModNetwork;
 import org.slf4j.Logger;
+import net.seep.tutorialmod.abilities.AbilityRegistry;
+import net.minecraftforge.fml.common.Mod;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(TutorialMod.MOD_ID)
@@ -32,18 +39,26 @@ public class TutorialMod {
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        ModCreativeModeTabs.register(modEventBus);
+
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        AbilityRegistry.registerAll();
+        ModNetwork.register();
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modEventBus.register(KeybindHandler.class); // At bottom of constructor
+
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)  {
 
     }
+
+
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
@@ -53,6 +68,17 @@ public class TutorialMod {
         }
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(ModBlocks.ALEXANDRITE_BLOCK);
+            event.accept(ModBlocks.RAW_ALEXANDRITE_BLOCK);
+        }
+        if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.MAGIC_BLOCK);
+
+        }
+        if(event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            event.accept(ModBlocks.DAMAGE_BLOCK);
+        }
+        if(event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+            event.accept(ModItems.CRONUT);
         }
     }
 

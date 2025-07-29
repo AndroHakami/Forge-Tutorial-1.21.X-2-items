@@ -1,6 +1,17 @@
 {
   "item.tutorialmod.alexandrite": "Alexandrite Gem",
   "item.tutorialmod.raw_alexandrite": "Raw Alexandrite",
+  "item.tutorialmod.chisel": "Chisel",
+  "item.tutorialmod.cronut": "Cronut",
 
-  "block.tutorialmod.alexandrite_block": "Alexandrite Block"
+  "block.tutorialmod.alexandrite_block": "Block of Alexandrite",
+  "block.tutorialmod.raw_alexandrite_block": "Raw Alexandrite Block",
+  "block.tutorialmod.magic_block": "Transform Table",
+  "block.tutorialmod.damage_block": "Evil Fucking Block",
+  "creativetab.tutorialmod.alexandrite_items": "Alexandrite Items",
+  "creativetab.tutorialmod.alexandrite_blocks": "Alexandrite Blocks",
+
+  "tooltip.tutorialmod.damage_block.tooltip": "Damage §dnon-sprinting enities!",
+  "tooltip.tutorialmod.chisel": "Transform Stone Into Something Else",
+  "tooltip.tutorialmod.chisel.shift_down": "ok its magma the something else is §c magma."
 }
